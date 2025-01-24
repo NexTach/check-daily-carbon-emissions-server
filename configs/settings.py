@@ -178,13 +178,12 @@ CORS_PREFLIGHT_MAX_AGE = 86400
 CSRF_TRUSTED_ORIGINS = [
     "https://check-daily-carbon-emissions-client-ten.vercel.app",
     "http://localhost:5173",
-    "https://*.cloudtype.app"
 ]
 
-SESSION_COOKIE_SAMESITE = None
-CSRF_COOKIE_SAMESITE = None
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 SECURE_PROXY_SSL_HEADER = None
 
