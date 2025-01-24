@@ -42,47 +42,49 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True  
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
+    # 'DELETE',
+    # 'GET',
+    # 'OPTIONS',
+    # 'PATCH',
+    # 'POST',
+    # 'PUT',
+    '*'
 ]
 
 CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    'access-control-allow-origin',
-    'access-control-allow-headers',
-    'access-control-allow-methods',
-    'access-control-allow-credentials',
-    'access-control-max-age',
+    # 'accept',
+    # 'accept-encoding',
+    # 'authorization',
+    # 'content-type',
+    # 'dnt',
+    # 'origin',
+    # 'user-agent',
+    # 'x-csrftoken',
+    # 'x-requested-with',
+    # 'access-control-allow-origin',
+    # 'access-control-allow-headers',
+    # 'access-control-allow-methods',
+    # 'access-control-allow-credentials',
+    # 'access-control-max-age',
+    '*'
 ]
 
 CORS_EXPOSE_HEADERS = [
-    'access-control-allow-origin',
-    'access-control-allow-credentials',
-    'content-type',
+    # 'access-control-allow-origin',
+    # 'access-control-allow-credentials',
+    # 'content-type',
+    '*'
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  
-    'django.middleware.common.CommonMiddleware',  
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -184,21 +186,21 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.cloudtype.app"
 ]
 
-SESSION_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = None
+CSRF_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = None
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = False
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = False
+    SECURE_CONTENT_TYPE_NOSNIFF = False
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-    X_FRAME_OPTIONS = 'DENY'
+    X_FRAME_OPTIONS = 'ALLOW-FROM *'
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     
@@ -232,7 +234,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-# 디렉토리 생성
 os.makedirs(STATIC_ROOT, exist_ok=True)
 os.makedirs(MEDIA_ROOT, exist_ok=True)
 os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)
