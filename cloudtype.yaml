@@ -11,11 +11,13 @@ options:
     - name: DB_PASSWORD
       value: "1234"
     - name: DB_HOST
-      value: "localhost"
+      value: "svc.sel5.cloudtype.app"
     - name: DB_PORT
-      value: "3306"
+      value: "30001"
     - name: DJANGO_DEBUG
       value: "False"
+    - name: ALLOWED_HOSTS
+      value: "*"
   python:
     version: "3.11"
     requirements: requirements.txt
