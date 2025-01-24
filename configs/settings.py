@@ -123,6 +123,11 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': os.environ.get('DB_HOST'),
         'PORT': os.environ.get('DB_PORT'),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+            'connect_timeout': 60,
+        }
     }
 }
 
@@ -163,6 +168,8 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -199,17 +206,19 @@ if not DEBUG:
         'version': 1,
         'disable_existing_loggers': False,
         'handlers': {
-            'file': {
-                'level': 'ERROR',
-                'class': 'logging.FileHandler',
-                'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'console': {
+                'class': 'logging.StreamHandler',
             },
+        },
+        'root': {
+            'handlers': ['console'],
+            'level': 'INFO',
         },
         'loggers': {
             'django': {
-                'handlers': ['file'],
-                'level': 'ERROR',
-                'propagate': True,
+                'handlers': ['console'],
+                'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+                'propagate': False,
             },
         },
     }
@@ -222,4 +231,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+# 디렉토리 생성
+os.makedirs(STATIC_ROOT, exist_ok=True)
+os.makedirs(MEDIA_ROOT, exist_ok=True)
+os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)
 
