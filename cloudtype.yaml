@@ -18,6 +18,8 @@ options:
       value: "False"
     - name: ALLOWED_HOSTS
       value: "*"
+    - name: CORS_ALLOWED_ORIGINS
+      value: "https://check-daily-carbon-emissions-client-ten.vercel.app"
   python:
     version: "3.11"
     requirements: requirements.txt
