@@ -83,16 +83,20 @@ def get_user_stats(request):
         'total_carbon_saved': profile.total_carbon_saved
     })
 
+def add_cors_headers(response):
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "*"
+    response["Access-Control-Allow-Headers"] = "*"
+    response["Access-Control-Allow-Credentials"] = "true"
+    return response
+
 @csrf_exempt
 @api_view(['POST', 'OPTIONS'])
 @permission_classes([AllowAny])
 def register(request):
-    if request.method == 'OPTIONS':
+    if request.method == "OPTIONS":
         response = HttpResponse()
-        response["Access-Control-Allow-Origin"] = "*"
-        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
-        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-        return response
+        return add_cors_headers(response)
     if 'username' not in request.data or 'password' not in request.data:
         return Response(
             {"error": "Both username and password are required"}, 
@@ -111,22 +115,20 @@ def register(request):
     )
     
     token = Token.objects.create(user=user)
-    return Response({
+    response = Response({
         'token': token.key,
         'user_id': user.id,
         'username': user.username
     })
+    return add_cors_headers(response)
 
 @csrf_exempt
 @api_view(['POST', 'OPTIONS'])
 @permission_classes([AllowAny])
 def login(request):
-    if request.method == 'OPTIONS':
+    if request.method == "OPTIONS":
         response = HttpResponse()
-        response["Access-Control-Allow-Origin"] = "*"
-        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
-        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-        return response
+        return add_cors_headers(response)
     user = authenticate(
         username=request.data.get('username'),
         password=request.data.get('password')
@@ -139,11 +141,12 @@ def login(request):
         )
         
     token, _ = Token.objects.get_or_create(user=user)
-    return Response({
+    response = Response({
         'token': token.key,
         'user_id': user.id,
         'username': user.username
     })
+    return add_cors_headers(response)
     
 @method_decorator(csrf_exempt, name='dispatch')
 class DailyRecordView(generics.ListCreateAPIView):
