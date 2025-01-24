@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.conf import settings
 from .services import create_or_update_daily_record, get_existing_record
@@ -84,9 +84,15 @@ def get_user_stats(request):
     })
 
 @csrf_exempt
-@api_view(['POST'])
+@api_view(['POST', 'OPTIONS'])
 @permission_classes([AllowAny])
 def register(request):
+    if request.method == 'OPTIONS':
+        response = HttpResponse()
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
     if 'username' not in request.data or 'password' not in request.data:
         return Response(
             {"error": "Both username and password are required"}, 
@@ -112,9 +118,15 @@ def register(request):
     })
 
 @csrf_exempt
-@api_view(['POST'])
+@api_view(['POST', 'OPTIONS'])
 @permission_classes([AllowAny])
 def login(request):
+    if request.method == 'OPTIONS':
+        response = HttpResponse()
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        return response
     user = authenticate(
         username=request.data.get('username'),
         password=request.data.get('password')
