@@ -24,7 +24,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*'] 
+ALLOWED_HOSTS = [
+    'check-daily-carbon-emissions.run.goorm.site',  # 클라우드타입 도메인
+    'svc.sel5.cloudtype.app',  # 기존 도메인
+    'localhost',
+    '127.0.0.1',
+    '*'
+]
 
 
 INSTALLED_APPS = [
@@ -42,6 +48,7 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://check-daily-carbon-emissions-client-ten.vercel.app",
+    "https://check-daily-carbon-emissions.run.goorm.site",  # 클라우드타입 도메인
     "http://localhost:5173",
 ]
 
@@ -49,6 +56,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "https://check-daily-carbon-emissions-client-ten.vercel.app",
+    "https://check-daily-carbon-emissions.run.goorm.site",  # 클라우드타입 도메인
     "http://localhost:5173",
     "https://svc.sel5.cloudtype.app",
 ]

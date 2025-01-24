@@ -21,7 +21,7 @@ options:
     - name: CORS_ALLOW_CREDENTIALS
       value: "True"
     - name: ALLOWED_HOSTS
-      value: "svc.sel5.cloudtype.app"
+      value: "check-daily-carbon-emissions.run.goorm.site,svc.sel5.cloudtype.app"
     - name: CORS_METHODS
       value: "DELETE, GET, OPTIONS, PATCH, POST, PUT"
     - name: CORS_HEADERS
