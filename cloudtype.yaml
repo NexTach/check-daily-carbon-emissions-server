@@ -21,7 +21,11 @@ options:
     - name: CORS_ALLOW_CREDENTIALS
       value: "True"
     - name: ALLOWED_HOSTS
-      value: "*"
+      value: "svc.sel5.cloudtype.app"
+    - name: CORS_METHODS
+      value: "DELETE, GET, OPTIONS, PATCH, POST, PUT"
+    - name: CORS_HEADERS
+      value: "accept, accept-encoding, authorization, content-type, dnt, origin, user-agent, x-csrftoken, x-requested-with"
   python:
     version: "3.11"
     requirements: requirements.txt
