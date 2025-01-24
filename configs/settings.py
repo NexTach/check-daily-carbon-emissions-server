@@ -47,6 +47,11 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://check-daily-carbon-emissions-client-ten.vercel.app",
+    "http://localhost:5173",
+]
+
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -68,12 +73,10 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-CORS_EXPOSE_HEADERS = [
-    # 'access-control-allow-origin',
-    # 'access-control-allow-credentials',
-    # 'content-type',
-    '*'
-]
+CORS_EXPOSE_HEADERS = ['*']
+CORS_PREFLIGHT_MAX_AGE = 86400
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -171,19 +174,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_PREFLIGHT_MAX_AGE = 86400  
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://check-daily-carbon-emissions-client-ten.vercel.app",
-    "http://localhost:5173",
-]
-
 SESSION_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-
-SECURE_PROXY_SSL_HEADER = None
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = False
