@@ -19,11 +19,13 @@ options:
     - name: ALLOWED_HOSTS
       value: "*"
     - name: CORS_ALLOWED_ORIGINS
-      value: "https://check-daily-carbon-emissions-client-ten.vercel.app"
+      value: "https://check-daily-carbon-emissions-client-ten.vercel.app,http://localhost:5173"
+    - name: CSRF_TRUSTED_ORIGINS
+      value: "https://check-daily-carbon-emissions-client-ten.vercel.app,http://localhost:5173"
   python:
     version: "3.11"
     requirements: requirements.txt
     startCommand: |
       python manage.py migrate
       python manage.py collectstatic --no-input
-      gunicorn configs.wsgi:application --bind 0.0.0.0:8000
+      gunicorn configs.wsgi:application --bind 0.0.0.0:8000 --timeout 120

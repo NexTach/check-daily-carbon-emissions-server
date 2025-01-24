@@ -159,6 +159,8 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'access-control-allow-origin',
+    'access-control-allow-credentials',
 ]
 
 REST_FRAMEWORK = {
@@ -179,6 +181,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://check-daily-carbon-emissions-client-ten.vercel.app",
+    "http://localhost:5173",
+]
+
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = 'None'
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
@@ -211,8 +221,8 @@ if not DEBUG:
             },
         },
     }
-
     CSRF_TRUSTED_ORIGINS = [
         "https://check-daily-carbon-emissions-client-ten.vercel.app",
         "http://localhost:5173"
     ]
+
