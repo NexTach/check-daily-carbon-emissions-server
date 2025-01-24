@@ -13,6 +13,9 @@ from django.http import Http404
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.conf import settings
 from .services import create_or_update_daily_record, get_existing_record
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes
+from django.utils.decorators import method_decorator
 
 
 class DailyRecordViewSet(viewsets.ModelViewSet):
@@ -80,6 +83,7 @@ def get_user_stats(request):
         'total_carbon_saved': profile.total_carbon_saved
     })
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
@@ -107,6 +111,7 @@ def register(request):
         'username': user.username
     })
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
@@ -128,6 +133,7 @@ def login(request):
         'username': user.username
     })
     
+@method_decorator(csrf_exempt, name='dispatch')
 class DailyRecordView(generics.ListCreateAPIView):
     serializer_class = DailyRecordSerializer
     permission_classes = [IsAuthenticated]
