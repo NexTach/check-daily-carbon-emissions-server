@@ -1,0 +1,25 @@
+name: check-daily-carbon-emissions
+app: python
+options:
+  env:
+    - name: DJANGO_SECRET_KEY
+      value: "django-insecure-)2eiyy+els$mkvwtag#e(p!hz6mfs#$k2w7lac4ie^t!_3e98r"
+    - name: DB_NAME
+      value: "check_daily_carbon_emissions"
+    - name: DB_USER
+      value: "root2"
+    - name: DB_PASSWORD
+      value: "1234"
+    - name: DB_HOST
+      value: "localhost"
+    - name: DB_PORT
+      value: "3306"
+    - name: DJANGO_DEBUG
+      value: "False"
+  python:
+    version: "3.11"
+    requirements: requirements.txt
+    startCommand: |
+      python manage.py migrate
+      python manage.py collectstatic --no-input
+      gunicorn configs.wsgi:application --bind 0.0.0.0:8000
