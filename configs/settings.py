@@ -50,6 +50,7 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "https://check-daily-carbon-emissions-client-ten.vercel.app",
     "http://localhost:5173",
+    "https://svc.sel5.cloudtype.app",
 ]
 
 CORS_ALLOW_METHODS = [
